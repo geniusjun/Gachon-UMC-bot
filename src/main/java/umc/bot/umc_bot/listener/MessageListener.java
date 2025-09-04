@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class MessageListener extends ListenerAdapter {
 
 
-    @Value("${discord.guild-id:}")
+    @Value("${discord.guild-id}")
     private String guildId;
 
 
