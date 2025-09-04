@@ -1,0 +1,13 @@
+# .dockerignore
+.git
+.gradle
+out
+**/*.iml
+**/.idea
+**/.vscode
+.env
+
+# build 전체는 빼되, JAR만 허용
+build/**
+!build/libs/
+!build/libs/*.jar
