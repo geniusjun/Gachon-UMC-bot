@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  umc-bot:
+    build: .
+    container_name: umc-bot
+    restart: unless-stopped
+    # 봇은 인바운드 포트 불필요 (디스코드 → 아웃바운드만)
+    env_file:
+      - ./.env   # 로컬 테스트용(EC2에서는 /opt/umc-bot/.env 처럼 외부 경로 권장)
+    healthcheck:
+      test: ["CMD", "bash", "-lc", "ps -ef | grep 'java -jar /app/app.jar' | grep -v grep"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
