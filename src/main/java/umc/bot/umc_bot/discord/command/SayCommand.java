@@ -10,6 +10,6 @@ public class SayCommand implements SlashCommand {
     @Override public String description() { return "말말말"; }
     @Override public void handle(SlashCommandInteractionEvent event) {
         var opt = event.getOption("UMC 9기 파이팅~~");
-        event.reply(opt == null ? "(no text)" : opt.getAsString()).queue();
+        event.reply(opt == null ? "UMC 9기 파이팅~~" : opt.getAsString()).queue();
     }
 }

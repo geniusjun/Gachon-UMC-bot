@@ -19,22 +19,23 @@ public class ChooseCommand implements SlashCommand {
 
     @Override
     public CommandData commandData() {
-        return slash(name(), description())
-                .addOption(OptionType.STRING, "a", "선택지 A", true)
-                .addOption(OptionType.STRING, "b", "선택지 B", true)
-                .addOption(OptionType.STRING, "c", "선택지 C", false)
-                .addOption(OptionType.STRING, "d", "선택지 D", false)
-                .addOption(OptionType.STRING, "e", "선택지 E", false);
+        var cmd = slash(name(), description());
+        for (int i = 1; i <= 10; i++) {
+            cmd.addOption(OptionType.STRING, "opt" + i, "선택지 " + i, i <= 2); // 최소 2개 필수
+        }
+        return cmd;
     }
 
     @Override
     public void handle(SlashCommandInteractionEvent event) {
         List<String> opts = new ArrayList<>();
-        for (String k : List.of("a","b","c","d","e")) {
-            if (event.getOption(k) != null) opts.add(event.getOption(k).getAsString());
+        for (int i = 1; i <= 10; i++) {
+            if (event.getOption("opt" + i) != null) {
+                opts.add(event.getOption("opt" + i).getAsString());
+            }
         }
         if (opts.size() < 2) {
-            event.reply("최소 두 개 이상 입력해줘!").setEphemeral(true).queue();
+            event.reply("❗ 최소 두 개 이상 입력해줘!").setEphemeral(true).queue();
             return;
         }
         String pick = opts.get(ThreadLocalRandom.current().nextInt(opts.size()));
